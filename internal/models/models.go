@@ -33,6 +33,6 @@ type DenormalizedProject struct {
 	Slug        string    `json:"slug"`
 	Description string    `json:"description"`
 	CreatedAt   time.Time `json:"created_at"`
-	Users       []User    `json:"user"`
-	Hashtags    []Hashtag `json:"hashtag"`
+	Users       []User    `json:"users"`
+	Hashtags    []Hashtag `json:"hashtags"`
 }
