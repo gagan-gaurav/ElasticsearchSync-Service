@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"fold/internal/models"
 
+	"github.com/google/uuid"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/sqs"
@@ -30,9 +32,9 @@ func SQS(doc *models.DenormalizedProject) error {
 		return err
 	}
 
-	// Create a new message
-	messageGroupId := "group-elastic"       // Replace with your desired message group ID
-	messageDeduplicationId := "unique-id-1" // Replace with your desired deduplication ID
+	// Create a new message metadata
+	messageGroupId := "sync-elastic"
+	messageDeduplicationId := GenerateUniqueID()
 
 	// Send message to the SQS FIFO queue
 	sendMessageInput := &sqs.SendMessageInput{
@@ -49,4 +51,9 @@ func SQS(doc *models.DenormalizedProject) error {
 
 	fmt.Println("Message sent to SQS successfully!")
 	return nil
+}
+
+func GenerateUniqueID() string {
+	id := uuid.New()
+	return id.String()
 }
