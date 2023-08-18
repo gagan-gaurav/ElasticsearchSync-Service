@@ -3,7 +3,7 @@ package database
 import (
 	"database/sql"
 	"fmt"
-	"log"
+	"os"
 
 	_ "github.com/lib/pq"
 )
@@ -11,11 +11,15 @@ import (
 var DB *sql.DB
 
 func MakeDatabaseConnection() {
-	db, connectionErr := sql.Open("postgres", "postgres://postgres:madking@localhost:5432/postgres?sslmode=disable")
+	dbUsername := os.Getenv("POSTGRES_USERNAME")
+	dbPassword := os.Getenv("POSTGRES_PASSWORD")
+	dbUrl := "postgres://" + dbUsername + ":" + dbPassword + "@localhost:5432/postgres?sslmode=disable"
+	fmt.Println(dbUrl)
+	db, connectionErr := sql.Open("postgres", dbUrl)
 	if connectionErr != nil {
-		log.Fatal(connectionErr)
-		panic(connectionErr)
+		fmt.Println("Failed to make connection to database.", connectionErr)
 	}
+
 	DB = db
 
 	// Create tables if not exist
@@ -50,7 +54,8 @@ func MakeDatabaseConnection() {
 	for _, query := range queries {
 		_, err := db.Exec(query)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println("Error updating table schema.", err)
+			return
 		}
 	}
 
