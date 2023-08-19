@@ -86,7 +86,7 @@ ELASTICSEARCH_USERNAME = your-elasticsearch-username
 ```
 
 ## Step 6: Building Search Service
-Clone searchService repo.
+Clone searchService repo. [repoLink](https://github.com/gagan-gaurav/searchService/tree/main)
 ```bash
 git clone https://github.com/gagan-gaurav/searchService.git
 ```
