@@ -34,6 +34,7 @@ Create an .env file in current folder with following environment variables:
 POSTGRES_URL=your-postgres-database-url-from-step-1
 AWS_ACCESS_KEY_ID=your-aws-access-key-id
 AWS_SECRET_ACCESS_KEY=your-aws-secret-access-key
+AWS_DEFAULT_REGION=ap-south-1
 SQS_QUEUE_URL=your-sqs-queue-url-from-step-1 
 ```
 
