@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-func CreateUserProjects(tx *sql.Tx, projectId int, userId int) error {
+func CreateProjectUsers(tx *sql.Tx, projectId int, userId int) error {
 	_, err := tx.Exec("INSERT INTO user_projects(project_id, user_id) VALUES($1, $2)", projectId, userId)
 	return err
 }
@@ -19,4 +19,9 @@ func ExistsUserProjects(projectId int, userId int) bool {
 		return false
 	}
 	return exists
+}
+
+func DeleteProjectUsers(tx *sql.Tx, projectId int) error {
+	_, err := tx.Exec("DELETE FROM user_projects WHERE project_id = $1", projectId)
+	return err
 }

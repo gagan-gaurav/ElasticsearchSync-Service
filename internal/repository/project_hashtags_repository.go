@@ -20,3 +20,8 @@ func ExistsProjectHastags(hashtagId int, projectId int) bool {
 	}
 	return exists
 }
+
+func DeleteProjectHashtags(tx *sql.Tx, projectId int) error {
+	_, err := tx.Exec("DELETE FROM project_hashtags WHERE project_id = $1", projectId)
+	return err
+}
