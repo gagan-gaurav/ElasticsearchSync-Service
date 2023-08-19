@@ -1,7 +1,7 @@
 # Fold assignment solution documentation
 
 ## Backend Architecture Solution
-![image](https://github.com/gagan-gaurav/fold/assets/51356017/c72e4f5c-7b65-48bc-8fc4-f41237943917)
+![image](https://github.com/gagan-gaurav/fold/assets/51356017/b3ff9eb8-079e-4407-8c57-5ce7af254b06)
 
 This architecture has 6 Components:
 1. SQS FIFO Queue
@@ -86,7 +86,7 @@ ELASTICSEARCH_USERNAME = your-elasticsearch-username
 ```
 
 ## Step 6: Building Search Service
-Clone searchService repo.
+Clone searchService repo. [repoLink](https://github.com/gagan-gaurav/searchService/tree/main)
 ```bash
 git clone https://github.com/gagan-gaurav/searchService.git
 ```
