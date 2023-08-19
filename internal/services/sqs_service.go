@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"fold/internal/models"
+	"os"
 
 	"github.com/google/uuid"
 
@@ -24,7 +25,7 @@ func SQS(payload *models.Payload) error {
 	// Create an SQS client
 	client := sqs.NewFromConfig(cfg)
 
-	queueURL := "https://sqs.ap-south-1.amazonaws.com/182059941907/syncElasticsearch.fifo"
+	queueURL := os.Getenv("SQS_QUEUE_URL")
 
 	jsonBytes, err := json.Marshal(payload)
 	if err != nil {
