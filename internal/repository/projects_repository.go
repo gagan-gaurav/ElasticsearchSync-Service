@@ -24,6 +24,40 @@ func GetProjectById(projectId int, project *models.Project) error {
 	return err
 }
 
+func GetAllProjects() ([]models.Project, error) {
+	var projects []models.Project
+
+	rows, err := database.DB.Query("SELECT id, name, slug, description, created_at FROM projects")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var project models.Project
+		err := rows.Scan(&project.ID, &project.Name, &project.Slug, &project.Description, &project.CreatedAt)
+		if err != nil {
+			return nil, err
+		}
+		project.UserIds, err = GetProjectUsersId(project.ID)
+		if err != nil {
+			return nil, err
+		}
+		project.HashtagIds, err = GetProjectHashtagsId(project.ID)
+		if err != nil {
+			return nil, err
+		}
+
+		projects = append(projects, project)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return projects, nil
+}
+
 func GetProjectByIdForTransaction(tx *sql.Tx, projectId int, project *models.Project) error {
 	err := tx.QueryRow("SELECT * FROM projects WHERE id = $1", projectId).Scan(&project.ID, &project.Name, &project.Slug, &project.Description, &project.CreatedAt)
 	return err
@@ -47,6 +81,46 @@ func ProjectExists(projectId int) bool {
 		return false
 	}
 	return exists
+}
+
+func GetProjectUsersId(projectId int) ([]int, error) {
+	var userIds []int
+	rows, err := database.DB.Query("SELECT u.id FROM users u JOIN user_projects p ON u.id = p.user_id WHERE p.project_id = $1", projectId)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var userId int
+		err := rows.Scan(&userId)
+		if err != nil {
+			return nil, err
+		}
+		userIds = append(userIds, userId)
+	}
+	return userIds, nil
+}
+
+func GetProjectHashtagsId(projectId int) ([]int, error) {
+	var hashtagIds []int
+
+	rows, err := database.DB.Query("SELECT h.id FROM hashtags h JOIN project_hashtags p ON h.id = p.hashtag_id WHERE p.project_id = $1", projectId)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var hashtagId int
+		err := rows.Scan(&hashtagId)
+		if err != nil {
+			return nil, err
+		}
+		hashtagIds = append(hashtagIds, hashtagId)
+	}
+
+	return hashtagIds, nil
 }
 
 func GetProjectUsers(tx *sql.Tx, projectId int, doc *models.DenormalizedProject) error {

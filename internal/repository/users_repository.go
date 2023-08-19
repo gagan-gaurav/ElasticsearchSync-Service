@@ -13,6 +13,31 @@ func CreateUser(user *models.User) error {
 	return err
 }
 
+func GetAllUsers() ([]models.User, error) {
+	var users []models.User
+
+	rows, err := database.DB.Query("SELECT id, name, created_at FROM users")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var user models.User
+		err := rows.Scan(&user.ID, &user.Name, &user.CreatedAt)
+		if err != nil {
+			return nil, err
+		}
+		users = append(users, user)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return users, nil
+}
+
 func GetUserById(userId int, user *models.User) error {
 	err := database.DB.QueryRow("SELECT * FROM users WHERE id = $1", userId).Scan(&user.ID, &user.Name, &user.CreatedAt)
 	return err

@@ -58,6 +58,18 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	RespondWithJSON(w, http.StatusOK, user)
 }
 
+func GetAllUsers(w http.ResponseWriter, r *http.Request) {
+	// Query the database to retrieve all users
+	users, err := repository.GetAllUsers()
+	if err != nil {
+		RespondWithError(w, http.StatusInternalServerError, "Failed to fetch users", err)
+		return
+	}
+
+	// Respond with the list of users
+	RespondWithJSON(w, http.StatusOK, users)
+}
+
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	// Get user ID from URL parameters
 	vars := mux.Vars(r)
@@ -153,6 +165,18 @@ func GetHashtag(w http.ResponseWriter, r *http.Request) {
 
 	// Respond with the hashtag's information
 	RespondWithJSON(w, http.StatusOK, hashtag)
+}
+
+func GetAllHashtags(w http.ResponseWriter, r *http.Request) {
+	// Query the database to retrieve all hashtags
+	hashtags, err := repository.GetAllHashtags()
+	if err != nil {
+		RespondWithError(w, http.StatusInternalServerError, "Failed to fetch hashtags", err)
+		return
+	}
+
+	// Respond with the list of hashtags
+	RespondWithJSON(w, http.StatusOK, hashtags)
 }
 
 func UpdateHashtag(w http.ResponseWriter, r *http.Request) {
@@ -268,6 +292,18 @@ func GetProject(w http.ResponseWriter, r *http.Request) {
 
 	// Respond with the project's information
 	RespondWithJSON(w, http.StatusOK, project)
+}
+
+func GetAllProjects(w http.ResponseWriter, r *http.Request) {
+	// Query the database to retrieve all projects
+	projects, err := repository.GetAllProjects()
+	if err != nil {
+		RespondWithError(w, http.StatusInternalServerError, "Failed to fetch projects", err)
+		return
+	}
+
+	// Respond with the list of projects
+	RespondWithJSON(w, http.StatusOK, projects)
 }
 
 func UpdateProject(w http.ResponseWriter, r *http.Request) {

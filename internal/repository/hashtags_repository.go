@@ -18,6 +18,31 @@ func GetHashtagById(hashtagID int, hashtag *models.Hashtag) error {
 	return err
 }
 
+func GetAllHashtags() ([]models.Hashtag, error) {
+	var hashtags []models.Hashtag
+
+	rows, err := database.DB.Query("SELECT id, name, created_at FROM hashtags")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var hashtag models.Hashtag
+		err := rows.Scan(&hashtag.ID, &hashtag.Name, &hashtag.CreatedAt)
+		if err != nil {
+			return nil, err
+		}
+		hashtags = append(hashtags, hashtag)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return hashtags, nil
+}
+
 func UpdateHashtag(tx *sql.Tx, hashtag *models.Hashtag) error {
 	_, err := database.DB.Exec("UPDATE hashtags SET name = $1 WHERE id = $2", hashtag.Name, hashtag.ID)
 	return err
