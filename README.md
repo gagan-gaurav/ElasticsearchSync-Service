@@ -6,10 +6,10 @@
 This architecture has 6 Components:
 1. SQS FIFO Queue
 2. Postgres Database
-3. Backend Service (written in GO) (Hosted on AWS ECS: http://15.207.18.247:8080 , use it with appropriate endpoints: look [API Documentation](#backend_apis))
+3. Backend Service (written in GO) (Service hosted on AWS ECS: http://15.207.18.247:8080 , use it with appropriate endpoints: look [Backend API Documentation](#backend_apis))
 4. Lmanda Sync Service (written in Python)
 5. Elasticsearch Service (Setup on EC2)
-6. Search Service (written in GO)
+6. Search Service (written in GO) (Service hosted on AWS ECS: http://15.207.18.247:8081 , use it with appropriate endpoints: look [Search API Documentation](#search_apis))
 
 
 ## Step 1: SQS FIFO Queue
@@ -42,6 +42,7 @@ Running docker container
 docker run -p 8080:8080 --env-file .env backendservice:v1
 ```
 <a id="backend_apis">
+  
 ### API Documentation for Bacend Service
 
 The following routes are available for interacting with the API:
@@ -64,6 +65,7 @@ The following routes are available for interacting with the API:
 Each route is associated with a specific HTTP method and provides functionality related to creating, retrieving, updating, or deleting users, hashtags, and projects.
 
 Make sure to use the appropriate HTTP method and route to perform the desired action on the API.
+
 </a>
 
 ## Step 4: Setting Elasticsearch on EC2
@@ -104,6 +106,9 @@ Running docker container
 ```bash
 docker run -p 8080:8080 --env-file .env searchservice:v1
 ```
+
+<a id="search_apis">
+
 ### API Documentation for Search Service
 
 The following routes are defined for serarch service:
@@ -117,6 +122,8 @@ The following routes are defined for serarch service:
 Each route is associated with a specific HTTP method and provides functionality related to searching users, hashtags, and performing fuzzy searches.
 
 Make sure to use the appropriate HTTP method and route along with the required query parameter to perform the desired search operation.
+
+</a>
 
 
 
