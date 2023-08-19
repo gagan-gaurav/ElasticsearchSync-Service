@@ -14,7 +14,7 @@ COPY . ./
 # Build
 RUN CGO_ENABLED=0 GOOS=linux go build -o /foldbackend ./cmd/main.go
 
-EXPOSE 8081
+EXPOSE 8080
 
 # Run
 CMD ["/foldbackend"]
