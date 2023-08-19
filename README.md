@@ -104,7 +104,7 @@ ELASTICSEARCH_URL=https:your-elasticsearch-url
 
 Running docker container 
 ```bash
-docker run -p 8080:8080 --env-file .env searchservice:v1
+docker run -p 8081:8081 --env-file .env searchservice:v1
 ```
 
 <a id="search_apis">
