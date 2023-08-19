@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-// Define a struct for your entities
+// Define struct for entities
 type User struct {
 	ID        int       `json:"id"`
 	Name      string    `json:"name"`
@@ -35,4 +35,9 @@ type DenormalizedProject struct {
 	CreatedAt   time.Time `json:"created_at"`
 	Users       []User    `json:"users"`
 	Hashtags    []Hashtag `json:"hashtags"`
+}
+
+type Payload struct {
+	Doc    DenormalizedProject `json:"doc"`
+	Method string              `json:"method"`
 }
