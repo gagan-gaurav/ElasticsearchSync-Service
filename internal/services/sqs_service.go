@@ -13,7 +13,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/sqs"
 )
 
-func SQS(doc *models.DenormalizedProject) error {
+func SQS(payload *models.Payload) error {
 	// Load AWS configuration
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
@@ -26,7 +26,7 @@ func SQS(doc *models.DenormalizedProject) error {
 
 	queueURL := "https://sqs.ap-south-1.amazonaws.com/182059941907/syncElasticsearch.fifo"
 
-	jsonBytes, err := json.Marshal(doc)
+	jsonBytes, err := json.Marshal(payload)
 	if err != nil {
 		fmt.Println("Error marshaling JSON:", err)
 		return err
