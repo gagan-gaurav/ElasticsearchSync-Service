@@ -140,15 +140,17 @@ docker run -p 8081:8081 --env-file .env searchservice:v1
 
 The following routes are defined for serarch service:
 
-| Route               | Method | Description                              |
-|-----------------------|--------|----------------------------------------|
-| `/users`              | GET    | Users search with query parameter      |
-| `/hashtags`           | GET    | Hashtags search with query parameter   |
-| `/fuzzy`              | GET    | Fuzzy search with query parameter      |
+| Route                                  | Method | Description                                                                                                 |
+|----------------------------------------|--------|-------------------------------------------------------------------------------------------------------------|
+| `/users?query=<username>`              | GET    | Users search with query parameter. It can match projects related to exact user                              |
+| `/hashtags?query=<hashtags>`           | GET    | Hashtags search with query parameter. It can match projects related to hashtag or combination of hashtags   |
+| `/fuzzy?query=<querystring>`           | GET    | Fuzzy search with query parameter it will match for **slug** and **description**                            |
 
 Each route is associated with a specific HTTP method and provides functionality related to searching users, hashtags, and performing fuzzy searches.
 
 Make sure to use the appropriate HTTP method and route along with the required query parameter to perform the desired search operation.
+
+
 
 </a>
 
