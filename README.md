@@ -1,10 +1,9 @@
-# fold
-fold assignment solution
+#Fold assignment solution documentation
 
 ## Backend Architecture Solution
 ![image](https://github.com/gagan-gaurav/fold/assets/51356017/c72e4f5c-7b65-48bc-8fc4-f41237943917)
 
-So it has 6 Components:
+This architecture has 6 Components:
 1. SQS FIFO Queue
 2. Postgres Database
 3. Backend Service (written in GO)
