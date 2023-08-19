@@ -14,7 +14,6 @@ func MakeDatabaseConnection() {
 	dbUsername := os.Getenv("POSTGRES_USERNAME")
 	dbPassword := os.Getenv("POSTGRES_PASSWORD")
 	dbUrl := "postgres://" + dbUsername + ":" + dbPassword + "@localhost:5432/postgres?sslmode=disable"
-	fmt.Println(dbUrl)
 	db, connectionErr := sql.Open("postgres", dbUrl)
 	if connectionErr != nil {
 		fmt.Println("Failed to make connection to database.", connectionErr)
