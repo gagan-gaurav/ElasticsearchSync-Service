@@ -66,6 +66,32 @@ Each route is associated with a specific HTTP method and provides functionality 
 
 Make sure to use the appropriate HTTP method and route to perform the desired action on the API.
 
+** Create/Update User Request Body Schema**:
+```json
+{
+  "name": "string",
+}
+```
+
+** Create/Update Hashtag Request Body Schema**:
+```json
+{
+  "name": "string",
+}
+```
+
+** Create/Update Project Request Body Schema**:
+```json
+{
+  "name": "string",
+  "slug": "string",
+  "description": "string",
+  "user_ids": [],
+  "hashtag_ids": [],
+}
+```
+
+
 </a>
 
 ## Step 4: Setting Elasticsearch on EC2
