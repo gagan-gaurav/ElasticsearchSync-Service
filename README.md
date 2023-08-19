@@ -70,7 +70,7 @@ Make sure to use the appropriate HTTP method and route to perform the desired ac
 
 ## Step 4: Setting Elasticsearch on EC2
 
-Create an EC2 instance. SSH into it. (Make sure to your security group has ingress for port:22 and port:9200)
+Create an EC2 instance. SSH into it. (Make sure that your security group has inbound request open for port:22 and port:9200)
 Install Elasticsearch RPM package -> Follow this [instructions](https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html) for installation.
 Grab your username(default_username="elastic") and password.
 
