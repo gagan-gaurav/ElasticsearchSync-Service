@@ -15,11 +15,9 @@ def lambda_handler(event, context):
             print(record)
             # Get the message body from the SQS record
             message_body = json.loads(record['body']) # Extract the body field
-            doc_id = message_body['id'] # Extract project id
+            doc_id = message_body['doc']['id'] # Extract project id
+            method = message_body['method'] # Extract method
             url += ("/" + str(doc_id))
-            print(url)
-            # message_body = json.dumps(message_body, indent=4)
-            print(message_body)
             
             # Create an HTTP connection
             conn = http.client.HTTPSConnection("3.108.40.246", 9200, context=ssl._create_unverified_context())
@@ -33,12 +31,18 @@ def lambda_handler(event, context):
             }
             
             # Send the request to index the data in Elasticsearch
-            conn.request("POST", url, body= json.dumps(message_body), headers=headers)  # Convert message_body to JSON
+            if(method == "POST"):
+                conn.request("POST", url, body= json.dumps(message_body['doc']), headers=headers)  # Convert message_body to JSON
+            else:
+                conn.request("DELETE", url, headers=headers)
             
             response = conn.getresponse()
             
             if response.status == 200 or response.status == 201:
-                print("Data indexed successfully!")
+                if(method == "POST") :
+                    print("Data indexed successfully!")
+                else : 
+                    print ("Data deleted successfully")
                 response_body = "successfully synced the data on elasticsearch."
             else:
                 print(f"Failed to index data. Response: {response.read().decode()}")
