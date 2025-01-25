@@ -1,4 +1,4 @@
-# Fold assignment solution documentation
+# Documentation
 
 ## Backend Architecture Solution
 ![image](https://github.com/gagan-gaurav/fold/assets/51356017/b3ff9eb8-079e-4407-8c57-5ce7af254b06)
